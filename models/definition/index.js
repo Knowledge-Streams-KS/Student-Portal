@@ -5,8 +5,9 @@ config = config.db;
 let sequelize = require('../../common/dbConnection');
 const User  = require('../definition/User');
 const Student  = require('../definition/Student');
+const Teacher  = require('../definition/Teacher');
 const models = {
-    User, Student
+    User, Student, Teacher
 };
 
 
