@@ -4,8 +4,9 @@ const db = {};
 config = config.db;
 let sequelize = require('../../common/dbConnection');
 const User  = require('../definition/User');
+const Student  = require('../definition/Student');
 const models = {
-    User
+    User, Student
 };
 
 
