@@ -7,8 +7,11 @@ const User  = require('../definition/User');
 const Student  = require('../definition/Student');
 const Teacher  = require('../definition/Teacher');
 const Course  = require('../definition/Course');
+const StudentTeacher  = require('../definition/StudentTeacher');
+const StudentCourse  = require('../definition/StudentCourse');
+const TeacherCourse  = require('../definition/TeacherCourse');
 const models = {
-    User, Student, Teacher, Course
+    User, Student, Teacher, Course, StudentTeacher, StudentCourse, TeacherCourse
 };
 
 
