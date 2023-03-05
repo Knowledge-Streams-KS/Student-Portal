@@ -9,7 +9,6 @@ module.exports = {
 
 	getUser : async function(){
 		const result = await models.User.findAll({
-			include :{ model: models.Role},
       attributes: {exclude: ['password']}
 		});
 		return result;
@@ -17,8 +16,7 @@ module.exports = {
 
 	getUserById : async function(ids){
 		const result = await models.User.findAll({
-			where : { id : ids},
-			include : models.Role
+			where : { id : ids}
 		});
 		return result;
 	},
@@ -50,7 +48,6 @@ module.exports = {
 		const result = await models.User.findAndCountAll({
 			where: {
 				[Op.or]: [
-				  { userName: body.userName },
 				  { email: body.email },
 				  { phoneNumber : body.phoneNumber}
 				]
