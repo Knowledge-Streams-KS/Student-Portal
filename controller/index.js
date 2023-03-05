@@ -1,5 +1,10 @@
 module.exports = {
 
+  //login
+  login: require("./common/login"),
+  logout: require("./common/logout"),
+  createToken: require("./common/createToken"),
+
   //users
   createUser: require("./users/createUser"),
   getUser: require("./users/getUser"),
