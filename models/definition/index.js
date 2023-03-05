@@ -21,7 +21,7 @@ User.hasMany(Teacher, {onDelete: 'CASCADE', foreignKey: 'userId'});
 Teacher.belongsTo(User, {onDelete: 'CASCADE', foreignKey: 'userId'});
 
 // roles-users many to many
-Teacher.belongsToMany(Course, {through:"junction"});
+Teacher.belongsToMany(Course, {through:"junction"});    
 Course.belongsTo(Teacher, {through: "junction"});
 
 let junction = sequelize.models.junction;
