@@ -14,10 +14,10 @@ const models = {
 
 
 // roles-users one to many
-User.hasMany(Student, {onDelete: 'CASCADE', foreignKey: 'userId'});
+User.hasOne(Student, {onDelete: 'CASCADE', foreignKey: 'userId'});
 Student.belongsTo(User, {onDelete: 'CASCADE', foreignKey: 'userId'});
 // roles-users one to many
-User.hasMany(Teacher, {onDelete: 'CASCADE', foreignKey: 'userId'});
+User.hasOne(Teacher, {onDelete: 'CASCADE', foreignKey: 'userId'});
 Teacher.belongsTo(User, {onDelete: 'CASCADE', foreignKey: 'userId'});
 
 // roles-users many to many
