@@ -1,8 +1,34 @@
 const { models } = require("../models/definition");
+const { createUser } = require('../models/userModel');
+const bcrypt = require('bcrypt')
 
 module.exports = {
   createTeacher: async function (body) {
-    const result = await models.Teacher.create(body);
+    const saltRounds = 10;
+	const hash = bcrypt.hashSync(body.password, saltRounds);
+	body.password = hash;
+	
+	var userData = {
+		firstName: body.firstName, 
+		lastName: body.lastName,
+		email: body.email,
+		phoneNumber: body.phoneNumber,
+		password: body.password,
+		role: body.role
+	}
+
+	var teacherData = {
+		teacherId: body.teacherId,
+		department: body.department,
+		officeLocation: body.officeLocation,
+		startTime: body.startTime,
+		endTime: body.endTime,
+	}
+
+	const user = await createUser(userData)
+
+	teacherData = {...teacherData, userId: user.id}
+    const result = await models.Teacher.create(teacherData);
     return result;
   },
   getTeacher: async function (body) {
