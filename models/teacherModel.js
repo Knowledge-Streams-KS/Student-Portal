@@ -31,33 +31,51 @@ module.exports = {
     const result = await models.Teacher.create(teacherData);
     return result;
   },
-  getTeacher: async function (body) {
-    const result = await models.Teacher.findAll();
+  getTeacher: async function () {
+    const result = await models.Teacher.findAll({
+		include: {
+			model: models.User,
+		}
+	});
     return result;
   },
   getTeacherById: async function (ids) {
     const result = await models.Teacher.findAll({
       where: { id: ids },
+      include: {
+        model: models.User,
+      },
     });
     return result;
   },
   updateTeacher: async function (body) {
-    console.log(body);
-    const result = await models.Teacher.update(
+		const result = await models.Teacher.findByPk(body.id);
+    const updateUser = await models.User.update(
       {
-        ...body
+        ...body,
       },
-
+      {
+        where: { id: result.id },
+      },
+	  );
+    const updateTeacher = await models.Teacher.update(
+      {
+        ...body,
+      },
       {
         where: { id: body.id },
-      }
+      },
     );
-    return result;
+		return "Teacher Information is up to date";
   },
   removeTeacher: async function (ids) {
-    const result = await models.Teacher.destroy({
+		const result = await models.Teacher.findByPk(ids);
+    const removeUser = await models.User.destroy({
+      where: { id: result.userId },
+    });
+    const removeTeacher = await models.Teacher.destroy({
       where: { id: ids },
     });
-    return "Deleted Teachers";
+    return "Deleted Teacher" ;
   },
 };
