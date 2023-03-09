@@ -30,33 +30,51 @@ module.exports = {
 	const result = await models.Student.create(studentData);
 	return result
   },
-  getStudent: async function (body) {
-    const result = await models.Student.findAll();
+  getStudent: async function () {
+    const result = await models.Student.findAll({
+		include: {
+			model: models.User,
+		}
+	});
     return result;
   },
   getStudentById: async function (ids) {
     const result = await models.Student.findAll({
       where: { id: ids },
+      include: {
+        model: models.User,
+      },
     });
     return result;
   },
   updateStudent: async function (body) {
-    console.log(body);
-    const result = await models.Student.update(
+		const result = await models.Student.findByPk(body.id);
+    const updateUser = await models.User.update(
       {
-        ...body
+        ...body,
       },
-
+      {
+        where: { id: result.id },
+      },
+	  );
+    const updateStudent = await models.Student.update(
+      {
+        ...body,
+      },
       {
         where: { id: body.id },
-      }
+      },
     );
-    return result;
+		return "Student Information is up to date";
   },
-  removeStudent: async function (ids) {
-    const result = await models.Student.destroy({
+ removeStudent: async function (ids) {
+		const result = await models.Student.findByPk(ids);
+    const removeUser = await models.User.destroy({
+      where: { id: result.userId },
+    });
+    const removeStudent = await models.Student.destroy({
       where: { id: ids },
     });
-    return "Deleted Students";
+    return "Deleted Student" ;
   },
 };
